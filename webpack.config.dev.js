@@ -24,6 +24,19 @@ export default {
         test: /\.js$/,
         include: path.join(__dirname, 'client'),
         loaders: [ 'react-hot-loader', 'babel-loader' ]
+      },
+      {
+        test: /\.css/,
+        loaders: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]'
+            }
+          }
+        ]
       }
     ]
   }
