@@ -2,7 +2,6 @@
  * Created by koyexes on 19/09/2017.
  */
 import React from 'react';
-import axios from 'axios';
 import css from './css/SignUpForm.css';
 
 class SignUpForm extends React.Component {
@@ -25,7 +24,7 @@ class SignUpForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
+    this.props.userSignupRequest(this.state);
   }
 
   render() {
@@ -43,7 +42,7 @@ class SignUpForm extends React.Component {
           </div>
           <div className="form-group">
             <label className="font-weight-bold" >Password</label>
-            <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.username} onChange={this.onChange} />
+            <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange} />
           </div>
           <div className="form-group">
             <label className="font-weight-bold" >Password Confirmation</label>
@@ -57,6 +56,10 @@ class SignUpForm extends React.Component {
     );
   }
 }
+
+SignUpForm.propTypes = {
+  userSignupRequest: React.PropTypes.func.isRequired
+};
 
 export default SignUpForm;
 
