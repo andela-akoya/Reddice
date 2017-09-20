@@ -2,6 +2,7 @@
  * Created by koyexes on 19/09/2017.
  */
 import React from 'react';
+import { Redirect } from 'react-router';
 import css from './css/SignUpForm.css';
 import validateInput from '../../server/shared/validations/signup';
 import TextFieldGroup from './common/TextFieldGroup';
@@ -15,7 +16,8 @@ class SignUpForm extends React.Component {
       email: '',
       password: '',
       passwordConfirmation: '',
-      error: {}
+      error: {},
+      redirect: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -38,7 +40,9 @@ class SignUpForm extends React.Component {
     if(this.isValid()){
       this.setState( { error: {} });
       this.props.userSignupRequest(this.state).then(
-        () => {},
+        () => {
+          this.setState({ redirect: true });
+        },
         ({ response }) => {
           this.setState({error: response.data});
         }
@@ -49,6 +53,10 @@ class SignUpForm extends React.Component {
 
   render() {
     const { error } = this.state;
+
+    if(this.state.redirect) {
+      return <Redirect to="/" />
+    }
     return(
       <div className="d-flex justify-content-center">
         <form className={"w-50 " + css.signUpForm } onSubmit={this.onSubmit}>
