@@ -9,7 +9,7 @@ export default class NavigationBar extends React.Component {
 
   render() {
     return (
-      <nav className="navbar navbar-dark bg-dark">
+      <nav className={css.nav + " navbar navbar-dark bg-dark"}>
         <NavLink className={"navbar-brand " + css.navHeader} to="/">Reddice</NavLink>
         <Route exact path="/" render={() => <NavLink className={css.signUpBtn} to="/signup" >Sign Up </NavLink> } />
       </nav>

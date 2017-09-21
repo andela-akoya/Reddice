@@ -3,3 +3,7 @@
   cursor: pointer;
   text-decoration-line: none !important;
 }
+
+.nav {
+  margin-bottom: 20px;
+}

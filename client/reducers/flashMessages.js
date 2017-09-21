@@ -1,8 +1,9 @@
 /**
  * Created by koyexes on 20/09/2017.
  */
-import { ADD_FLASH_MESSAGE } from '../actions/types';
+import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE } from '../actions/types';
 import shortid from 'shortid';
+import findIndex from 'lodash/findIndex';
 
 export default (state = [], action = {}) => {
   switch(action.type) {
@@ -15,6 +16,16 @@ export default (state = [], action = {}) => {
           text: action.message.text
         }
       ];
+    case DELETE_FLASH_MESSAGE:
+      const index = findIndex(state, { id: action.id });
+      if(index >= 0){
+        return [
+          ...state.slice(0, index),
+          ...state.slice(index + 1)
+        ];
+      }
+      return state;
+
     default:
       return state;
   }

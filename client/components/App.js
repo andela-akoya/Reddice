@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 import Greetings from './Greetings';
 import SignUpPage from './SignUpPage';
+import FlashMessagesList from './flash/FlashMessagesList';
 
 class App extends React.Component {
 
@@ -14,6 +15,7 @@ class App extends React.Component {
       <div>
         <NavigationBar/>
         <div className="container">
+          <FlashMessagesList />
           <Switch>
             <Route path="/greetings" component={Greetings}/>
             <Route path="/signup" component={SignUpPage}/>
