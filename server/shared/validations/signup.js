@@ -3,29 +3,29 @@ import isEmpty from 'lodash/isEmpty';
 
 const validateInput = (data) => {
 
-  let errors = {};
+  let error = {};
 
   if(validator.isEmpty(data.username)) {
-    errors.username = "This field is required";
+    error.username = "This field is required";
   }
   if(validator.isEmpty(data.email)) {
-    errors.email = "This field is required";
+    error.email = "This field is required";
   }else if(!validator.isEmail(data.email)) {
-    errors.email = "Email is invalid";
+    error.email = "Email is invalid";
   }
   if(validator.isEmpty(data.password)){
-    errors.password = "This field is required";
+    error.password = "This field is required";
   }
   if(validator.isEmpty(data.passwordConfirmation)) {
-    errors.passwordConfirmation = "This field is required"
+    error.passwordConfirmation = "This field is required"
   }
   if(!validator.equals(data.password, data.passwordConfirmation)){
-    errors.passwordConfirmation = "Passwords must match";
+    error.passwordConfirmation = "Passwords must match";
   }
 
   return {
-    errors,
-    isValid: isEmpty(errors)
+    error,
+    isValid: isEmpty(error)
   }
 };
 
