@@ -8,7 +8,15 @@ const TextFieldGroup = (props) => {
   return (
     <div className={classnames("form-group", { "has-danger": props.error })}>
       <label className="font-weight-bold" >{props.label}</label>
-      <input type={props.type} className="form-control" name={props.field} placeholder={props.label} value={props.value} onChange={props.onChange} />
+      <input
+        type={props.type}
+        className="form-control"
+        name={props.field}
+        placeholder={props.label}
+        value={props.value}
+        onChange={props.onChange}
+        onBlur={props.checkUserExists}
+      />
       { props.error && <span>{props.error}</span> }
     </div>
   )
@@ -20,7 +28,8 @@ TextFieldGroup.propTypes = {
   label: React.PropTypes.string.isRequired,
   error: React.PropTypes.string,
   type: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired
+  onChange: React.PropTypes.func.isRequired,
+  checkUserExists: React.PropTypes.func
 };
 
 TextFieldGroup.defaultProps = {

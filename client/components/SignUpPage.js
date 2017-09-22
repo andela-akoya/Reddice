@@ -4,22 +4,27 @@
 import React from 'react';
 import SignUpForm from './SignUpForm';
 import { connect } from 'react-redux';
-import userSignupRequest from '../actions/signupActions';
+import { userSignupRequest, isUserExists } from '../actions/signupActions';
 import { addFlashMessage }  from '../actions/flashMessages';
 
 class SignUpPage extends React.Component {
 
   render() {
-    const {userSignupRequest, addFlashMessage } = this.props;
+    const {userSignupRequest, addFlashMessage, isUserExists } = this.props;
     return (
-      <SignUpForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage} />
+      <SignUpForm
+        userSignupRequest={userSignupRequest}
+        addFlashMessage={addFlashMessage}
+        isUserExists={isUserExists}
+      />
     )
   }
 }
 
 SignUpPage.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
-  addFlashMessage: React.PropTypes.func.isRequired
+  addFlashMessage: React.PropTypes.func.isRequired,
+  isUserExists: React.PropTypes.func.isRequired
 };
 
-export default connect(null, { userSignupRequest, addFlashMessage })(SignUpPage);
+export default connect(null, { userSignupRequest, addFlashMessage, isUserExists })(SignUpPage);

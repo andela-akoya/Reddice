@@ -17,10 +17,12 @@ class SignUpForm extends React.Component {
       password: '',
       passwordConfirmation: '',
       error: {},
-      redirect: false
+      redirect: false,
+      invalid: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.checkUserExists = this.checkUserExists.bind(this);
   }
 
   onChange(e){
@@ -28,11 +30,30 @@ class SignUpForm extends React.Component {
   }
 
   isValid(){
-    const { errors , isValid } = validateInput(this.state);
+    const { error , isValid } = validateInput(this.state);
     if(!isValid){
-      this.setState({ error: errors });
+      this.setState({ error });
     }
     return isValid;
+  }
+
+  checkUserExists(e){
+    const field = e.target.name;
+    const value = e.target.value;
+    if(value !== ''){
+      this.props.isUserExists(value).then(res => {
+        let { error, invalid }  = this.state;
+        if(res.data.user) {
+          error[field] = `There is a user with such ${field}`;
+          invalid = true;
+        }else{
+          error[field] = '';
+          invalid = false
+        }
+        this.setState({ error, invalid })
+
+      });
+    }
   }
 
   onSubmit(e) {
@@ -71,6 +92,7 @@ class SignUpForm extends React.Component {
             field="username"
             onChange={this.onChange}
             value={this.state.username}
+            checkUserExists={this.checkUserExists}
           />
 
           <TextFieldGroup
@@ -80,6 +102,7 @@ class SignUpForm extends React.Component {
             field="email"
             onChange={this.onChange}
             value={this.state.email}
+            checkUserExists={this.checkUserExists}
           />
 
           <TextFieldGroup
@@ -101,7 +124,7 @@ class SignUpForm extends React.Component {
           />
 
           <div className="form-group d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary w-25 " >Sign up</button>
+            <button type="submit" className="btn btn-primary w-25 " disabled={this.state.invalid} >Sign up</button>
           </div>
         </form>
       </div>
@@ -111,7 +134,8 @@ class SignUpForm extends React.Component {
 
 SignUpForm.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
-  addFlashMessage: React.PropTypes.func.isRequired
+  addFlashMessage: React.PropTypes.func.isRequired,
+  isUserExists: React.PropTypes.func.isRequired
 };
 
 export default SignUpForm;

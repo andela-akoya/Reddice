@@ -9,4 +9,10 @@ const userSignupRequest = (userData) => {
   }
 };
 
-export default userSignupRequest;
+const isUserExists = (identifier) => {
+  return dispatch => {
+    return axios.get(`/api/users/${identifier}`);
+  }
+};
+
+export { userSignupRequest, isUserExists };
