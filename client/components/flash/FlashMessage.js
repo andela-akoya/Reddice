@@ -11,7 +11,7 @@ class FlashMessage extends React.Component {
   }
 
   onClick() {
-    let { id } = this.props.message; 
+    let { id } = this.props.message;
     this.props.deleteFlashMessage(id);
   }
   render() {
